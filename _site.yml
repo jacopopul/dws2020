@@ -1,0 +1,11 @@
+name: "DWSWG_2020"
+navbar:
+  title: "DWSWG_2020"
+  left:
+    - text: "DWS2020"
+      href: index.html
+    - text: "Analysis"
+      href: analysis.html
+    - text: "Results"
+      href: results.html
+output_dir: "docs"
