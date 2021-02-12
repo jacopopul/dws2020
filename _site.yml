@@ -6,6 +6,8 @@ navbar:
       href: index.html
     - text: "Analysis"
       href: analysis.html
-    - text: "Results"
-      href: results.html
+    - text: "Assessement at basin level"
+      href: basin.html
+    - text: "Assessement GSAs level"
+      href: gsas.html
 output_dir: "docs"

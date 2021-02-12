@@ -1,0 +1,52 @@
+---
+title: "Results of the analysis of AIS data 2015-2019"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
+    toc_depth: 3
+    #code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+library(leaflet)
+library(sf)
+library(ggplot2)
+library(dplyr)
+library(raster)
+
+wgs = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
+
+ref_gsa = paste0("GSA", c(12:16, 18:27))
+#Land ####
+land = read_sf("maps/land/ne_10m_admin_0_countries.shp")
+st_crs(land) = wgs
+#GSA ####
+ref_gsa = paste0("GSA", c(12:16, 18:27))
+gsa = read_sf("maps/gsas/gsas.shp")
+gsa = gsa[which(gsa$SECT_COD %in% ref_gsa),]
+st_crs(gsa) = wgs
+gsa_bb = st_bbox(gsa)
+gsa_pp_ext = extent(gsa_bb[1], gsa_bb[3], gsa_bb[2], gsa_bb[4])
+gsa_bb_p = st_set_crs(st_as_sf(as(gsa_pp_ext, "SpatialPolygons")), 4326)
+gsas_centers = st_centroid(gsa)
+gsa_center = st_centroid(gsa_bb_p)
+```
+
+# AIS data subsetting and processing
+
+# General assessment
+
+## Fishing activity
+```{r echo=FALSE}
+leaflet(gsa) %>%
+  setView(lng = gsa_center$geometry[[1]][1], lat = gsa_center$geometry[[1]][2], zoom = 4) %>%
+  addTiles(group = "base")
+```
+
+## Deep-water fishery impact in Vulnerable Marine Ecosystem
+
+## Fleet dynamics
